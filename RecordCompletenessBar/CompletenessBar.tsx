@@ -6,7 +6,6 @@ import {
     Tooltip,
     makeStyles,
     tokens,
-    shorthands,
 } from "@fluentui/react-components";
 import {
     CheckmarkCircle20Filled,
@@ -28,14 +27,22 @@ export interface ICompletenessBarProps {
     showMissingList: boolean;
 }
 
+/**
+ * Styles using direct CSS properties instead of shorthands helpers.
+ * This ensures compatibility with Fluent UI 9.46.2 (PCF platform version).
+ * shorthands.borderTop() and some multi-arg shorthands may not exist in 9.46.2.
+ */
 const useStyles = makeStyles({
     root: {
         display: "flex",
         flexDirection: "column",
-        ...shorthands.gap("8px"),
-        ...shorthands.padding("12px", "16px"),
+        gap: "8px",
+        paddingTop: "12px",
+        paddingBottom: "12px",
+        paddingLeft: "16px",
+        paddingRight: "16px",
         backgroundColor: tokens.colorNeutralBackground1,
-        ...shorthands.borderRadius("8px"),
+        borderRadius: tokens.borderRadiusMedium,
         boxShadow: tokens.shadow4,
         fontFamily: tokens.fontFamilyBase,
     },
@@ -47,44 +54,50 @@ const useStyles = makeStyles({
     headerLeft: {
         display: "flex",
         alignItems: "center",
-        ...shorthands.gap("8px"),
+        gap: "8px",
     },
     scoreText: {
         fontSize: "24px",
-        fontWeight: "700" as any,
+        fontWeight: 700 as unknown as string,
         lineHeight: "28px",
     },
     progressContainer: {
-        ...shorthands.margin("4px", "0"),
+        marginTop: "4px",
+        marginBottom: "4px",
     },
     missingSection: {
         display: "flex",
         flexDirection: "column",
-        ...shorthands.gap("4px"),
-        ...shorthands.padding("8px", "0", "0", "0"),
-        ...shorthands.borderTop("1px", "solid", tokens.colorNeutralStroke2),
+        gap: "4px",
+        paddingTop: "8px",
+        borderTopWidth: "1px",
+        borderTopStyle: "solid",
+        borderTopColor: tokens.colorNeutralStroke2,
     },
     missingTitle: {
         display: "flex",
         alignItems: "center",
-        ...shorthands.gap("4px"),
+        gap: "4px",
         fontSize: "12px",
-        fontWeight: "600" as any,
+        fontWeight: 600 as unknown as string,
         color: tokens.colorNeutralForeground3,
-        textTransform: "uppercase" as const,
+        textTransform: "uppercase",
         letterSpacing: "0.5px",
     },
     fieldList: {
         display: "flex",
-        flexWrap: "wrap" as const,
-        ...shorthands.gap("6px"),
+        flexWrap: "wrap",
+        gap: "6px",
     },
     fieldChip: {
         display: "inline-flex",
         alignItems: "center",
-        ...shorthands.gap("4px"),
-        ...shorthands.padding("2px", "8px"),
-        ...shorthands.borderRadius("4px"),
+        gap: "4px",
+        paddingTop: "2px",
+        paddingBottom: "2px",
+        paddingLeft: "8px",
+        paddingRight: "8px",
+        borderRadius: tokens.borderRadiusSmall,
         fontSize: "12px",
         lineHeight: "20px",
     },
@@ -99,9 +112,13 @@ const useStyles = makeStyles({
     allGood: {
         display: "flex",
         alignItems: "center",
-        ...shorthands.gap("6px"),
+        gap: "6px",
         color: tokens.colorPaletteGreenForeground1,
         fontSize: "13px",
+    },
+    badgeText: {
+        fontSize: "12px",
+        fontWeight: 600 as unknown as string,
     },
 });
 
@@ -109,20 +126,23 @@ export const CompletenessBarApp: React.FC<ICompletenessBarProps> = (props) => {
     const { fields, warningThreshold, dangerThreshold, showMissingList } = props;
     const classes = useStyles();
 
+    // Empty state — no fields configured
     if (fields.length === 0) {
         return (
             <div className={classes.root}>
-                <Text size={200} style={{ color: tokens.colorNeutralForeground3 }}>
-                    <Info20Regular style={{ verticalAlign: "middle", marginRight: 4 }} />
-                    No fields configured. Set the <strong>Fields To Check</strong> property.
-                </Text>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", color: tokens.colorNeutralForeground3 }}>
+                    <Info20Regular />
+                    <Text size={200}>
+                        No fields configured. Set the <strong>Fields To Check</strong> property.
+                    </Text>
+                </div>
             </div>
         );
     }
 
     const filledCount = fields.filter((f) => f.filled).length;
     const totalCount = fields.length;
-    const percentage = Math.round((filledCount / totalCount) * 100);
+    const percentage = totalCount > 0 ? Math.round((filledCount / totalCount) * 100) : 0;
     const missingFields = fields.filter((f) => !f.filled);
 
     // Determine color based on thresholds
@@ -135,6 +155,10 @@ export const CompletenessBarApp: React.FC<ICompletenessBarProps> = (props) => {
         barColor = "warning";
         scoreColor = tokens.colorPaletteDarkOrangeForeground1;
     }
+
+    // Badge color mapping
+    const badgeColor: "success" | "warning" | "danger" =
+        barColor === "success" ? "success" : barColor === "warning" ? "warning" : "danger";
 
     return (
         <div className={classes.root}>
@@ -150,14 +174,16 @@ export const CompletenessBarApp: React.FC<ICompletenessBarProps> = (props) => {
                 </div>
                 <Tooltip
                     content={`${filledCount} of ${totalCount} fields filled`}
-                    relationship="label"
+                    relationship="description"
                 >
                     <Badge
                         size="medium"
                         appearance="filled"
-                        color={barColor === "success" ? "success" : barColor === "warning" ? "warning" : "danger"}
+                        color={badgeColor}
                     >
-                        {filledCount}/{totalCount}
+                        <span className={classes.badgeText}>
+                            {filledCount}/{totalCount}
+                        </span>
                     </Badge>
                 </Tooltip>
             </div>
@@ -168,7 +194,6 @@ export const CompletenessBarApp: React.FC<ICompletenessBarProps> = (props) => {
                     value={percentage / 100}
                     thickness="large"
                     color={barColor}
-                    shape="rounded"
                 />
             </div>
 
@@ -186,7 +211,7 @@ export const CompletenessBarApp: React.FC<ICompletenessBarProps> = (props) => {
                                 <Warning20Filled
                                     style={{ color: tokens.colorPaletteDarkOrangeForeground1 }}
                                 />
-                                Missing fields ({missingFields.length})
+                                <span>Missing fields ({missingFields.length})</span>
                             </div>
                             <div className={classes.fieldList}>
                                 {fields.map((f) => (

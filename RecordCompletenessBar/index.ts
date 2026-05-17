@@ -33,40 +33,63 @@ export class RecordCompletenessBar implements ComponentFramework.ReactControl<II
             .split(",")
             .map((l) => l.trim());
 
-        // Read thresholds
-        const warningThreshold = context.parameters.warningThreshold?.raw ?? 60;
-        const dangerThreshold = context.parameters.dangerThreshold?.raw ?? 30;
+        // Read thresholds with validation
+        let warningThreshold = context.parameters.warningThreshold?.raw ?? 60;
+        let dangerThreshold = context.parameters.dangerThreshold?.raw ?? 30;
 
-        // Show missing list
+        // Clamp thresholds to 0-100 range
+        warningThreshold = Math.max(0, Math.min(100, warningThreshold));
+        dangerThreshold = Math.max(0, Math.min(100, dangerThreshold));
+
+        // Ensure danger < warning for logical consistency
+        if (dangerThreshold >= warningThreshold) {
+            dangerThreshold = Math.max(0, warningThreshold - 10);
+        }
+
+        // Show missing list toggle
         const showMissingRaw = (context.parameters.showMissingList?.raw || "true").toLowerCase();
         const showMissingList = showMissingRaw !== "false";
 
-        // Evaluate each field using the form context (Xrm)
+        // Get formContext — the supported way to read field values in Model-Driven Apps
+        const formContext = this.getFormContext();
+
+        // Evaluate each field
         const fieldStatuses: { name: string; label: string; filled: boolean }[] = [];
 
         for (let i = 0; i < fieldNames.length; i++) {
             const logicalName = fieldNames[i];
             const label = fieldLabels[i] || logicalName;
-
             let filled = false;
-            try {
-                // Try to read the attribute value from the form context
-                const attrValue = (context as any).parameters?.[logicalName]?.raw;
-                if (attrValue !== undefined && attrValue !== null) {
-                    filled = String(attrValue).trim().length > 0;
-                } else {
-                    // Fallback: try Xrm.Page if available (Model-Driven App)
-                    const xrm = (window as any).Xrm;
-                    if (xrm?.Page?.getAttribute) {
-                        const attr = xrm.Page.getAttribute(logicalName);
-                        if (attr) {
-                            const val = attr.getValue();
-                            filled = val !== null && val !== undefined && String(val).trim().length > 0;
+
+            if (formContext) {
+                try {
+                    const attr = formContext.getAttribute(logicalName);
+                    if (attr) {
+                        const val = attr.getValue();
+                        if (val !== null && val !== undefined) {
+                            if (typeof val === "string") {
+                                filled = val.trim().length > 0;
+                            } else if (Array.isArray(val)) {
+                                // Lookup fields return an array of EntityReference
+                                filled = val.length > 0;
+                            } else if (typeof val === "boolean") {
+                                // Boolean/Two Options — always considered "filled" if set
+                                filled = true;
+                            } else if (typeof val === "number") {
+                                // Whole number, decimal, currency, optionset
+                                filled = true;
+                            } else if (val instanceof Date) {
+                                // Date/DateTime fields
+                                filled = true;
+                            } else {
+                                // Fallback for other types
+                                filled = true;
+                            }
                         }
                     }
+                } catch {
+                    filled = false;
                 }
-            } catch {
-                filled = false;
             }
 
             fieldStatuses.push({ name: logicalName, label, filled });
@@ -80,6 +103,28 @@ export class RecordCompletenessBar implements ComponentFramework.ReactControl<II
         };
 
         return React.createElement(CompletenessBarApp, props);
+    }
+
+    /**
+     * Gets the Xrm formContext to read field values.
+     * Compatible with Model-Driven Apps (Unified Interface).
+     */
+    private getFormContext(): any {
+        try {
+            // Primary: Xrm.Page (still available in Unified Interface runtime)
+            const xrm = (window as any).Xrm;
+            if (xrm?.Page?.getAttribute) {
+                return xrm.Page;
+            }
+            // Fallback: parent window (iframes)
+            const parentXrm = (window as any).parent?.Xrm;
+            if (parentXrm?.Page?.getAttribute) {
+                return parentXrm.Page;
+            }
+        } catch {
+            // Test harness or unsupported environment
+        }
+        return null;
     }
 
     public getOutputs(): IOutputs {
