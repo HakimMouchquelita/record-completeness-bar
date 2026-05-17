@@ -1,0 +1,42 @@
+{
+  "name": "record-completeness-bar",
+  "version": "1.0.0",
+  "description": "A PCF control that displays a visual completeness score for Dataverse records with missing field details.",
+  "author": "Hakim Mouchquelita",
+  "license": "MIT",
+  "keywords": [
+    "pcf",
+    "power-apps",
+    "dataverse",
+    "dynamics-365",
+    "data-quality",
+    "completeness",
+    "model-driven-apps",
+    "fluent-ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hakimmouchquelita/record-completeness-bar.git"
+  },
+  "scripts": {
+    "build": "pcf-scripts build",
+    "clean": "pcf-scripts clean",
+    "lint": "pcf-scripts lint",
+    "rebuild": "pcf-scripts rebuild",
+    "start": "pcf-scripts start",
+    "start:watch": "pcf-scripts start watch"
+  },
+  "dependencies": {
+    "@fluentui/react-components": "^9.46.2",
+    "@fluentui/react-icons": "^2.0.230",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "pcf-scripts": "^1",
+    "pcf-start": "^1",
+    "typescript": "^5.4.0"
+  }
+}

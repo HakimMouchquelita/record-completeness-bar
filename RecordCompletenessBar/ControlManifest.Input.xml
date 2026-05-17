@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="HMQ" constructor="RecordCompletenessBar" version="1.0.0" display-name-key="RecordCompletenessBar" description-key="Displays a visual completeness score for a Dataverse record, highlighting missing fields to improve data quality." control-type="virtual" >
+    <external-service-usage enabled="false">
+    </external-service-usage>
+    <!-- Bind to any single-line text field to anchor the control on the form -->
+    <property name="boundField" display-name-key="Bound Field" description-key="Bind to any single-line text field on the form. The control uses it as an anchor." of-type="SingleLine.Text" usage="bound" required="true" />
+    <!-- Comma-separated list of logical field names to check -->
+    <property name="fieldsToCheck" display-name-key="Fields To Check" description-key="Comma-separated list of logical field names to evaluate for completeness (e.g. emailaddress1,telephone1,address1_city,jobtitle)." of-type="SingleLine.Text" usage="input" required="true" />
+    <!-- Comma-separated list of friendly display labels (same order as fieldsToCheck) -->
+    <property name="fieldLabels" display-name-key="Field Labels" description-key="Comma-separated list of friendly display names matching fieldsToCheck order (e.g. Email,Phone,City,Job Title)." of-type="SingleLine.Text" usage="input" required="false" />
+    <!-- Thresholds -->
+    <property name="warningThreshold" display-name-key="Warning Threshold (%)" description-key="Percentage below which the bar turns orange (default 60)." of-type="Whole.None" usage="input" required="false" />
+    <property name="dangerThreshold" display-name-key="Danger Threshold (%)" description-key="Percentage below which the bar turns red (default 30)." of-type="Whole.None" usage="input" required="false" />
+    <!-- Show missing field list toggle -->
+    <property name="showMissingList" display-name-key="Show Missing Fields List" description-key="Show or hide the list of missing fields below the bar (true/false, default true)." of-type="SingleLine.Text" usage="input" required="false" />
+    <resources>
+      <code path="index.ts" order="1"/>
+      <platform-library name="React" version="18.3.1" />
+      <platform-library name="Fluent" version="9.46.2" />
+    </resources>
+  </control>
+</manifest>
