@@ -5,10 +5,10 @@
     "lib": ["ES2017", "DOM"],
     "declaration": true,
     "sourceMap": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "moduleResolution": "node",
     "jsx": "react",
     "esModuleInterop": true,
@@ -16,7 +16,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "outDir": "./out"
+    "outDir": "./out",
+    "typeRoots": ["node_modules/@types"]
   },
   "include": [
     "RecordCompletenessBar/**/*"

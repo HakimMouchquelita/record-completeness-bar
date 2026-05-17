@@ -16,7 +16,7 @@
     <property name="showMissingList" display-name-key="Show Missing Fields List" description-key="Show or hide the list of missing fields below the bar (true/false, default true)." of-type="SingleLine.Text" usage="input" required="false" />
     <resources>
       <code path="index.ts" order="1"/>
-      <platform-library name="React" version="18.3.1" />
+<platform-library name="React" version="16.8.6" />
       <platform-library name="Fluent" version="9.46.2" />
     </resources>
   </control>
