@@ -186,3 +186,4 @@ Contributions are welcome! Please:
 - **PCF Gallery**: *(pending submission)*
 - **Author**: [Hakim Mouchquelita](https://www.linkedin.com/in/hakimmouchquelita/) — Solution Architect Power Platform & AI
 - **Blog**: [GitHub Pages CV](https://hakimmouchquelita.github.io/CV-Expert-D365-Power-Platform/)
+
