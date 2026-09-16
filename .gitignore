@@ -9,6 +9,7 @@ bin/
 # Generated
 RecordCompletenessBar/generated/
 TaskCompletenessBar/generated/
+OnboardingStatusOverview/generated/
 
 # IDE
 .vs/

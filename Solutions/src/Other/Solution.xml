@@ -90,6 +90,9 @@
     </Publisher>
     <RootComponents>
       <RootComponent type="66" schemaName="HMQ.TaskCompletenessBar" behavior="0" />
+      <RootComponent type="66" schemaName="HMQ.OnboardingStatusOverview" behavior="0" />
+      <RootComponent type="66" schemaName="HMQ.BooleanToggle" behavior="0" />
+      <RootComponent type="1" schemaName="itr_onboardingcase" behavior="2" />
     </RootComponents>
     <MissingDependencies />
   </SolutionManifest>

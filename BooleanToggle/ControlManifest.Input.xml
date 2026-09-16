@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="HMQ" constructor="BooleanToggle" version="1.0.0" display-name-key="BooleanToggle" description-key="Renders a Yes/No (Two Options) field as an editable Fluent UI toggle switch. Useful on forms and in editable grid/subgrid views for quickly flipping a boolean value (e.g. marking a task completed) without opening the record." control-type="virtual" >
+    <external-service-usage enabled="false">
+    </external-service-usage>
+    <!-- Bind to any Yes/No (Two Options) field -->
+    <property name="value" display-name-key="Value" description-key="The Yes/No field to render and edit as a toggle." of-type="TwoOptions" usage="bound" required="true" />
+    <!-- Optional display labels -->
+    <property name="onLabel" display-name-key="On Label" description-key="Label shown next to the toggle when it is on (default: Yes)." of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="offLabel" display-name-key="Off Label" description-key="Label shown next to the toggle when it is off (default: No)." of-type="SingleLine.Text" usage="input" required="false" />
+    <resources>
+      <code path="index.ts" order="1"/>
+      <platform-library name="React" version="16.8.6" />
+      <platform-library name="Fluent" version="9.46.2" />
+    </resources>
+  </control>
+</manifest>

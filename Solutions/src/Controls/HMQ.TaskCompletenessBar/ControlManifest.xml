@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <manifest>
-  <control namespace="HMQ" constructor="TaskCompletenessBar" version="1.0.0" display-name-key="TaskCompletenessBar" description-key="Displays a visual completeness score for related Task records linked to the current record, highlighting incomplete tasks." control-type="virtual" api-version="1.3.18">
+  <control namespace="HMQ" constructor="TaskCompletenessBar" version="1.0.1" display-name-key="TaskCompletenessBar" description-key="Displays a visual completeness score for related Task records linked to the current record, highlighting incomplete tasks." control-type="virtual" api-version="1.3.18">
     <external-service-usage enabled="false"/>
     <property name="boundField" display-name-key="Bound Field" description-key="Bind to any single-line text field on the form. The control uses it as an anchor." of-type="SingleLine.Text" usage="bound" required="true"/>
     <property name="taskEntityLogicalName" display-name-key="Task Entity Logical Name" description-key="Logical name of the related task entity (default: task)." of-type="SingleLine.Text" usage="input" required="false"/>

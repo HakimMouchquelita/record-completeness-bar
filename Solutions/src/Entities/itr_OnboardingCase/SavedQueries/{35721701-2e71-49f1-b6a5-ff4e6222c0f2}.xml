@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{35721701-2e71-49f1-b6a5-ff4e6222c0f2}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="itr_employeename" select="1" icon="1" preview="1">
+        <row name="result" id="itr_onboardingcaseid">
+          <cell name="itr_employeename" width="300" />
+          <cell name="itr_expectedstartdate" width="220" />
+        </row>
+        <controlDescriptions>
+          <controlDescription>
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+              <parameters />
+            </customControl>
+            <customControl name="HMQ.OnboardingStatusOverview" formFactor="0">
+              <parameters>
+                <data-set name="records"></data-set>
+                <taskEntityLogicalName static="true" type="SingleLine.Text">task</taskEntityLogicalName>
+                <lookupFieldName static="true" type="SingleLine.Text">itr_onboardingcase</lookupFieldName>
+                <completedFieldName static="true" type="SingleLine.Text">itr_completed</completedFieldName>
+                <dueDateFieldName static="true" type="SingleLine.Text">scheduledend</dueDateFieldName>
+              </parameters>
+            </customControl>
+            <customControl name="HMQ.OnboardingStatusOverview" formFactor="1">
+              <parameters>
+                <data-set name="records"></data-set>
+                <taskEntityLogicalName static="true" type="SingleLine.Text">task</taskEntityLogicalName>
+                <lookupFieldName static="true" type="SingleLine.Text">itr_onboardingcase</lookupFieldName>
+                <completedFieldName static="true" type="SingleLine.Text">itr_completed</completedFieldName>
+                <dueDateFieldName static="true" type="SingleLine.Text">scheduledend</dueDateFieldName>
+              </parameters>
+            </customControl>
+            <customControl name="HMQ.OnboardingStatusOverview" formFactor="2">
+              <parameters>
+                <data-set name="records"></data-set>
+                <taskEntityLogicalName static="true" type="SingleLine.Text">task</taskEntityLogicalName>
+                <lookupFieldName static="true" type="SingleLine.Text">itr_onboardingcase</lookupFieldName>
+                <completedFieldName static="true" type="SingleLine.Text">itr_completed</completedFieldName>
+                <dueDateFieldName static="true" type="SingleLine.Text">scheduledend</dueDateFieldName>
+              </parameters>
+            </customControl>
+          </controlDescription>
+        </controlDescriptions>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="itr_onboardingcase">
+          <attribute name="itr_onboardingcaseid" />
+          <attribute name="itr_employeename" />
+          <attribute name="itr_expectedstartdate" />
+          <order attribute="itr_employeename" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Onboarding Cases" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

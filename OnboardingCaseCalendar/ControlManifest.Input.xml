@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="HMQ" constructor="OnboardingCaseCalendar" version="1.0.0" display-name-key="OnboardingCaseCalendar" description-key="Replaces a view grid with a month calendar, placing each record in the view on the day matching a configurable date field." control-type="virtual" >
+    <external-service-usage enabled="false">
+    </external-service-usage>
+    <!-- The dataset bound to the view this control replaces (e.g. an Onboarding Case view) -->
+    <data-set name="records" display-name-key="Records">
+    </data-set>
+    <!-- Calendar configuration -->
+    <property name="dateFieldName" display-name-key="Date Field Name" description-key="Logical name of the date field used to place each record on the calendar (default: itr_expectedstartdate)." of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="titleFieldName" display-name-key="Title Field Name" description-key="Logical name of the field used as the label on each calendar chip (default: itr_employeename)." of-type="SingleLine.Text" usage="input" required="false" />
+    <resources>
+      <code path="index.ts" order="1"/>
+      <platform-library name="React" version="16.8.6" />
+      <platform-library name="Fluent" version="9.46.2" />
+    </resources>
+    <feature-usage>
+      <uses-feature name="TrackContainerResize" required="true" />
+    </feature-usage>
+  </control>
+</manifest>

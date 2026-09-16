@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="HMQ" constructor="TaskCompletenessBar" version="1.0.0" display-name-key="TaskCompletenessBar" description-key="Displays a visual completeness score for related Task records linked to the current record, highlighting incomplete tasks." control-type="virtual" >
+  <control namespace="HMQ" constructor="TaskCompletenessBar" version="1.0.1" display-name-key="TaskCompletenessBar" description-key="Displays a visual completeness score for related Task records linked to the current record, highlighting incomplete tasks." control-type="virtual" >
     <external-service-usage enabled="false">
     </external-service-usage>
     <!-- Bind to any single-line text field to anchor the control on the form -->

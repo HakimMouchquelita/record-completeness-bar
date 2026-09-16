@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<manifest>
+  <control namespace="HMQ" constructor="OnboardingStatusOverview" version="1.0.1" display-name-key="OnboardingStatusOverview" description-key="Replaces a view grid with an overview table showing, for every record in the view, the percentage of related Task records that are completed (color-coded by due date status)." control-type="virtual" api-version="1.3.18">
+    <external-service-usage enabled="false"/>
+    <data-set name="records" display-name-key="Records"/>
+    <property name="taskEntityLogicalName" display-name-key="Task Entity Logical Name" description-key="Logical name of the related task entity (default: task)." of-type="SingleLine.Text" usage="input" required="false"/>
+    <property name="lookupFieldName" display-name-key="Lookup Field Name" description-key="Logical name of the lookup field on the task entity pointing back to the record in this view (default: itr_onboardingcase)." of-type="SingleLine.Text" usage="input" required="false"/>
+    <property name="completedFieldName" display-name-key="Completed Field Name" description-key="Logical name of the Yes/No field on the task entity indicating completion (default: itr_completed)." of-type="SingleLine.Text" usage="input" required="false"/>
+    <property name="dueDateFieldName" display-name-key="Due Date Field Name" description-key="Logical name of the date field on the task entity used to determine overdue/due-today status (default: scheduledend)." of-type="SingleLine.Text" usage="input" required="false"/>
+    <resources>
+      <code path="bundle.js" order="1"/>
+      <platform-library name="React" version="16.8.6"/>
+      <platform-library name="Fluent" version="9.46.2"/>
+    </resources>
+    <feature-usage>
+      <uses-feature name="WebAPI" required="true"/>
+      <uses-feature name="TrackContainerResize" required="true"/>
+    </feature-usage>
+    <built-by name="pac" version="1.51.1"/>
+  </control>
+</manifest>
