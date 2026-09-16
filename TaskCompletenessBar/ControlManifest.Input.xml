@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="HMQ" constructor="TaskCompletenessBar" version="1.0.0" display-name-key="TaskCompletenessBar" description-key="Displays a visual completeness score for related Task records linked to the current record, highlighting incomplete tasks." control-type="virtual" >
+    <external-service-usage enabled="false">
+    </external-service-usage>
+    <!-- Bind to any single-line text field to anchor the control on the form -->
+    <property name="boundField" display-name-key="Bound Field" description-key="Bind to any single-line text field on the form. The control uses it as an anchor." of-type="SingleLine.Text" usage="bound" required="true" />
+    <!-- Related task schema configuration -->
+    <property name="taskEntityLogicalName" display-name-key="Task Entity Logical Name" description-key="Logical name of the related task entity (default: task)." of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="lookupFieldName" display-name-key="Lookup Field Name" description-key="Logical name of the lookup field on the task entity pointing back to this record (default: itr_onboardingcase)." of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="completedFieldName" display-name-key="Completed Field Name" description-key="Logical name of the Yes/No field on the task entity indicating completion (default: itr_completed)." of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="dueDateFieldName" display-name-key="Due Date Field Name" description-key="Logical name of the date field on the task entity used to determine overdue/due-today status (default: scheduledend)." of-type="SingleLine.Text" usage="input" required="false" />
+    <resources>
+      <code path="index.ts" order="1"/>
+<platform-library name="React" version="16.8.6" />
+      <platform-library name="Fluent" version="9.46.2" />
+    </resources>
+  </control>
+</manifest>

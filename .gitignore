@@ -8,6 +8,7 @@ bin/
 
 # Generated
 RecordCompletenessBar/generated/
+TaskCompletenessBar/generated/
 
 # IDE
 .vs/
